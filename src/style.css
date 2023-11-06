@@ -1,6 +1,8 @@
 * {
     margin: 0;
     padding: 0;
+    background-color: rgb(33, 33, 103);
+    color: red;
 }
 
 .nav-container {
@@ -27,13 +29,29 @@
 .sidebar-container {
     display: flex;
     flex-flow: column;
+    background-color: gray;
 }
 
 .task-container {
     display: flex;
+    background-color: rgb(154, 149, 149);
 
 }
 
 .content-body {
     display: flex;
+}
+
+.none {
+    display: none;
+}
+
+.input-container {
+    display: flex;
+}
+
+img {
+    content: url('./icon.png');
+    max-width: 20px;
+    max-height: 20px;
 }

@@ -1,4 +1,4 @@
-export { nav };
+export { nav, collapseBtn};
 
 
 function nav() {
@@ -38,11 +38,12 @@ function buttons() {
 
     return div;
 }
-
+    
 function collapseBtn() {
     const button = document.createElement('button');
-    button.classList.add('collapse');
+    button.classList.add('collapseBtn');
     button.textContent = 'coll';  
+
     return button;
 }
 
