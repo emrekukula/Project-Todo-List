@@ -1,14 +1,19 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: rgb(33, 33, 103);
-    color: red;
+    color: blue;
+}
+
+body {
+    background-color: black;
+    font-size: 1.5rem;
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     background-color: rgb(194, 84, 84);
+    height: 7vw;
 }
 
 .right-nav {
@@ -30,16 +35,20 @@
     display: flex;
     flex-flow: column;
     background-color: gray;
+    width: 20vw;
 }
 
 .task-container {
     display: flex;
     background-color: rgb(154, 149, 149);
+    width: 80vw;
+    justify-content: center;
 
 }
 
 .content-body {
     display: flex;
+    height: 600px;
 }
 
 .none {
@@ -54,4 +63,27 @@ img {
     content: url('./icon.png');
     max-width: 20px;
     max-height: 20px;
+}
+
+.green {
+    background-color: green;
+}
+
+.card-container {
+    display: flex;
+    width: 61vw;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.strike {
+    text-decoration: line-through;
+}
+
+/* .extend-div {
+    display: flex;
+} */
+
+.taskBtn {
+    justify-self: center;
 }

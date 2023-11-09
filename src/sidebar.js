@@ -1,4 +1,4 @@
-export { sidebar, createNewProject, projectForm, createProjectContainer};
+export { sidebar, createNewProject, createProjectContainer};
 
 
 function sidebar() {
@@ -62,15 +62,16 @@ function createNewProject() {
     const newProjectDiv = document.createElement('div');
     newProjectDiv.classList.add('project-container')
 
+    const img = document.createElement('img');
+    img.classList.add('project-img');
+    newProjectDiv.appendChild(img);
+    
     const button = document.createElement('button');
     button.textContent = 'Create New Project';
     button.classList.add('projectBtn')
     button.setAttribute('id', 'projectBtn');
     newProjectDiv.appendChild(button);
 
-    const img = document.createElement('img');
-    img.classList.add('project-img');
-    newProjectDiv.appendChild(img);
 
     newProjectDiv.appendChild(createProjectList());
 
@@ -86,10 +87,8 @@ function createProjectList() {
 }
 
 function projectForm() {
-    const projectContainer = document.querySelector('.project-container');
     const formContainer = document.createElement('div');
     formContainer.setAttribute('id', 'form-container');
-    // formContainer.classList.add('none');
 
     const form = document.createElement('form');
     form.classList.add('project-form');
@@ -124,7 +123,7 @@ function createProjectContainer(input) {
 
     const container = document.createElement('div');
     container.classList.add('input-container');
-    container.setAttribute('id', `${input}`);
+    container.setAttribute('id', input);
     formContainer.appendChild(container);
     
     const img = document.createElement('img');
@@ -139,4 +138,5 @@ function createProjectContainer(input) {
     button.textContent = 'del';
     button.classList.add('project-delete-button');
     container.appendChild(button);
+
 }
