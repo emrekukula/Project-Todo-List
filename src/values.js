@@ -33,15 +33,16 @@ function getDate() {
     const schedule = document.querySelector('input[type="date"]');
 
     const date = schedule.value;
+    const newDate = new Date(date);
+    const format = newDate.toDateString();
 
-    return date;
+    return format;
 }
 
 function getEditValues(i) {
     const inputs = document.querySelectorAll('.input-div');
     const dates = document.querySelectorAll('.date-div');
     const prios = document.querySelectorAll('.prio');
-
     
     return {
         "inputValue": inputs[i].textContent,
@@ -50,10 +51,10 @@ function getEditValues(i) {
     };
 }
 
-function getInputChange() {
-    const contentInput = document.querySelector('.content-input');
+function getInputChange(i) {
+    const contentInput = document.querySelectorAll('.content-input');
 
-    const input = contentInput.value;
+    const input = contentInput[i].value;
 
     return input;
 }

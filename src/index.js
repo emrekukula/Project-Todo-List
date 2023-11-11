@@ -3,8 +3,7 @@ import { sidebar } from './sidebar.js'
 import { task } from './task.js'
 import "./style.css"
 import _ from 'lodash';
-import { collapseEvent, newProjectEvent, newTaskEvent } from './events'
-
+import { collapseEvent, homeButton, inboxButton, newProjectEvent, newTaskEvent, todayButton } from './events'
 
 function render() {
     const div = document.getElementById('content');
@@ -21,6 +20,10 @@ function render() {
     collapseEvent();
     newProjectEvent();
     newTaskEvent();
+
+    todayButton();
+    inboxButton();
+    homeButton();
 }
 
 render();

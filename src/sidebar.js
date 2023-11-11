@@ -19,6 +19,7 @@ function createSideOptions() {
     insideDiv.classList.add('created-content');
     
     array.forEach( e => {
+
         const upperCapital = e.toLowerCase().charAt(0).toUpperCase() + e.slice(1)
         const lowerCase = e.toLowerCase();
 
@@ -31,6 +32,10 @@ function createSideOptions() {
         button.textContent = upperCapital;
         button.classList.add(lowerCase);
         div.appendChild(button);
+
+        if ( e === 'inbox') {
+            button.setAttribute('disabled', '');
+        }
     
         insideDiv.appendChild(div);
     })

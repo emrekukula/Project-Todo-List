@@ -11,15 +11,13 @@ function task() {
 
 function addTask() {
     const div = document.createElement('div');
-    div.classList.add('task-div');
+    div.classList.add('task-div', 'bgImageOn');
     
     const button = document.createElement('button');
     button.classList.add('taskBtn');    
     button.textContent = 'Add Task';
     div.appendChild(button);
     
-    const img = document.createElement('img');
-    div.appendChild(img);
     div.appendChild(taskForm());
     
     return div;
@@ -34,9 +32,6 @@ function taskForm() {
     formContainer.appendChild(form);
 
     form.appendChild(prioritySelection());
-    form.appendChild(schedule());
-    form.appendChild(submitTaskButton());
-    form.appendChild(cancelTaskButton());
     
     return formContainer;
 }
@@ -72,6 +67,10 @@ function prioritySelection() {
     option4.setAttribute('value', 'High');
     option4.textContent = 'High';
     select.appendChild(option4);
+
+    div.appendChild(schedule());
+    div.appendChild(submitTaskButton());
+    div.appendChild(cancelTaskButton());
 
     return div;
 }
@@ -123,27 +122,31 @@ function createTaskContainer(input, priority, date) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('card-container');
     container.appendChild(cardContainer);
+
+    const defaultDiv = document.createElement('div');
+    defaultDiv.classList.add('default-div');
+    cardContainer.appendChild(defaultDiv);
     
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
-    cardContainer.appendChild(checkbox);
+    defaultDiv.appendChild(checkbox);
 
     const inputDiv = document.createElement('div');
     inputDiv.textContent = input;
     inputDiv.classList.add('input-div');
-    cardContainer.appendChild(inputDiv);
+    defaultDiv.appendChild(inputDiv);
 
     const dateDiv = document.createElement('div');
     dateDiv.textContent = date;
     dateDiv.classList.add('date-div');
-    cardContainer.appendChild(dateDiv);
+    defaultDiv.appendChild(dateDiv);
 
     const extendBtn = document.createElement('button');
     extendBtn.classList.add('extend-button');
     extendBtn.textContent = 'extend';
-    cardContainer.appendChild(extendBtn);
+    defaultDiv.appendChild(extendBtn);
 
-    cardContainer.appendChild(deleteTaskButton());
+    defaultDiv.appendChild(deleteTaskButton());
 
     const extendDiv = document.createElement('div');
     extendDiv.classList.add('extend-div', 'none');
@@ -162,7 +165,7 @@ function createTaskContainer(input, priority, date) {
     const prio = document.createElement('div');
     prio.textContent = priority;
     prio.classList.add('prio')
-    cardContainer.appendChild(prio);
+    extendDiv.appendChild(prio);
 
 
     priorityColor(priority, cardContainer);
@@ -170,7 +173,13 @@ function createTaskContainer(input, priority, date) {
 
 function priorityColor(priority, cardContainer) {
     if ( priority === 'Low') {
-        cardContainer.classList.add('green');
+        cardContainer.classList.add('low');
+    } else if (priority === 'Medium') {
+        cardContainer.classList.add('medium');
+    } else if (priority === 'High') {
+        cardContainer.classList.add('high');
+    } else {
+        cardContainer.style.backgroundColor = 'gray';   
     }
 }
 function deleteTaskButton() {

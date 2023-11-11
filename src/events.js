@@ -1,7 +1,8 @@
-export { collapseEvent, newProjectEvent, newTaskEvent };
+export { collapseEvent, newProjectEvent, newTaskEvent, todayButton, inboxButton, homeButton };
 import { createProjectContainer } from './sidebar';
 import { getProjectInput, getTaskInput, getPriority, getDate, getEditValues, getInputChange} from './values'
 import * as exports from './task'
+import { spread } from 'lodash';
 
 // import every function from /task
 Object.entries(exports).forEach(([name, exported]) => window[name] = exported);
@@ -100,13 +101,20 @@ function addTask() {
         checkbox();
         editTask();
         changeInputContent();
-        
+        changeBackground();
+
         submitTaskBtn.removeEventListener('click', addButtonClickHandler);
 
         addTask(); // same as line 80
     }
     
     submitTaskBtn.addEventListener('click', addButtonClickHandler);
+}
+
+function changeBackground() {
+    const taskDiv = document.querySelector('.task-div');
+
+    taskDiv.classList.remove('bgImageOn')
 }
 
 function cancelTask() {
@@ -134,29 +142,52 @@ function projectDelete() {
 
 function taskDelete() {
     const deleteTaskBtn = document.querySelectorAll('.delete-task-button');
+    const taskInputContainer = document.querySelectorAll('.task-input-container');
+    const taskDiv = document.querySelector('.task-div');
 
     deleteTaskBtn.forEach((btn) => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
 
-            btn.closest('div').remove();
+            btn.closest('div').parentNode.parentNode.remove();
+
+            if (taskInputContainer.length == 1) {
+                taskDiv.classList.add('bgImageOn');
+            }
         })
     })
 }
 
 function extendButton() {
     const extendBtn = document.querySelectorAll('.extend-button');
-    const extendContainer = document.querySelectorAll('.extend-container');
-    
-    extendBtn.forEach((btn) => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            
-            btn.closest('div').querySelector('.extend-div').classList.remove('none');
-            console.log(btn.closest('div'));
-        })
-    })
-}   
+
+    extendBtn.forEach((btn, i) => {
+
+        // Check if a click event listener is already attached
+        if (!btn.hasEventListener) {
+            btn.hasEventListener = true; 
+
+            btn.addEventListener('click', e => {
+                e.preventDefault();
+
+                console.log(btn, i);
+
+                const extendDiv = btn.parentNode.parentNode.querySelector('.extend-div');
+
+                if (extendDiv.classList.contains('none')) {
+                    console.log('click none');
+                    extendDiv.classList.remove('none');
+                    extendDiv.style.display = 'flex';
+                    extendDiv.classList.remove('extended');
+                } else {
+                    extendDiv.style.display = 'none';
+                    extendDiv.classList.add('none');
+                    extendDiv.classList.add('extended');
+                }
+            });
+        }
+    });
+}
 
 function checkbox() {
     const checkbox = document.querySelectorAll('input[type="checkbox"]')
@@ -201,29 +232,79 @@ function editTask() {
 }
 
 function changeInputContent() {
-    const inputDiv = document.querySelector('.input-div');
-    const checkbox = document.querySelector('input[type="checkbox"]');
-    const dateDiv = document.querySelector('.date-div');
+    const inputDiv = document.querySelectorAll('.input-div');
+    const checkbox = document.querySelectorAll('input[type="checkbox"]');
+    const dateDiv = document.querySelectorAll('.date-div');
 
-    inputDiv.addEventListener('click', () => {
-        checkbox.parentNode.insertBefore(exports.formOnClick(), dateDiv);
-        submitInputChange();
-        inputDiv.textContent = '';
-    })
+    inputDiv.forEach( (div, i) => {
+        div.addEventListener('click', () => {
+
+            checkbox[i].parentNode.insertBefore(formOnClick(), dateDiv[i]);
+            submitInputChange();
+            inputDiv[i].textContent = '';
+        })
+    });
 }
 
 function submitInputChange() {
-    const contentForm = document.querySelector('.content-form');
-    const inputDiv = document.querySelector('.input-div');
-    const contentInput = document.querySelector('.content-input');
+    const contentForm = document.querySelectorAll('.content-form');
+    const inputDiv = document.querySelectorAll('.input-div');
+    const contentInput = document.querySelectorAll('.content-input');
 
-    contentInput.addEventListener('keypress', e => {
-        
-        if ( e.key == 'Enter' ) {
-            e.preventDefault();
+    contentInput.forEach( (input, i) => {
+        input.addEventListener('keypress', () => {
+            if ( input.key == 'Enter' ) {
+                input.preventDefault();
+    
+                inputDiv[i].textContent = getInputChange(i);
+                contentForm[i].remove();
+            }
+        })
+    })
+}
 
-            inputDiv.textContent = getInputChange();
-            contentForm.remove();
-        }
+let inboxContent;
+
+function todayButton() {
+    const todayButton = document.querySelector('.today');
+    const inboxButton = document.querySelector('.inbox');
+    const taskContainer = document.querySelector('.task-container');
+    
+    todayButton.addEventListener('click', e => {
+        e.preventDefault();
+
+        inboxContent = taskContainer.innerHTML;
+        taskContainer.textContent = '';
+        todayButton.setAttribute('disabled', '');
+        inboxButton.removeAttribute('disabled');
+    })
+}
+
+function inboxButton() {
+    const inboxButton = document.querySelector('.inbox');
+    const todayButton = document.querySelector('.today');
+    const taskContainer = document.querySelector('.task-container');
+
+    inboxButton.addEventListener('click', e => {
+        e.preventDefault();
+
+        taskContainer.innerHTML = inboxContent;
+        inboxButton.setAttribute('disabled', '');
+        todayButton.removeAttribute('disabled');
+    })
+}
+
+function homeButton() {
+    const homeButton = document.querySelector('.home');
+    const inboxButton = document.querySelector('.inbox');
+    const todayButton = document.querySelector('.today');
+    const taskContainer = document.querySelector('.task-container');
+
+    homeButton.addEventListener('click', e => {
+        e.preventDefault();
+
+        taskContainer.innerHTML = inboxContent;
+        inboxButton.setAttribute('disabled', '');
+        todayButton.removeAttribute('disabled');
     })
 }

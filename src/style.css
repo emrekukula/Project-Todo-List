@@ -19,6 +19,19 @@ body {
 .right-nav {
     display: flex;
     flex-flow: column;
+    font-size: 1.2rem;
+}
+
+.low {
+    background-color: green;
+}
+
+.medium {
+    background-color: rgb(96, 96, 162);
+}
+
+.high {
+    background-color: orange;
 }
 
 .left-nav {
@@ -43,7 +56,6 @@ body {
     background-color: rgb(154, 149, 149);
     width: 80vw;
     justify-content: center;
-
 }
 
 .content-body {
@@ -65,25 +77,71 @@ img {
     max-height: 20px;
 }
 
-.green {
-    background-color: green;
-}
-
 .card-container {
     display: flex;
     width: 61vw;
     justify-content: space-evenly;
     align-items: center;
+    flex-flow: column;
 }
 
 .strike {
     text-decoration: line-through;
 }
 
-/* .extend-div {
+.taskBtn {
+    max-width: 60px;
+}
+
+.schedule, .submit-task, .cancel-task {
+    display: inline;
+}
+
+.task-form {
+    justify-items: center;
+}
+
+.task-div {
     display: flex;
-} */
+    flex-flow: column;
+    align-items: center;
+    width: 60vw;
+}
+
+.default-div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 61vw;
+}
+
+.flex {
+    display: flex;
+}
+
+.extended {
+
+}
+
+.extend-div {
+    width: 55vw;
+    justify-content: space-around;
+}
+
+.extend-div + div {
+    flex: 1;
+}
+
+.task-input-container {
+    margin-top: 10px;
+}
+
+.bgImageOn {
+    background-image: url(./icon.png);
+    background-repeat: no-repeat;
+}
 
 .taskBtn {
-    justify-self: center;
+    width: 100px;
+    height: 50px;
 }
