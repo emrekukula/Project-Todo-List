@@ -3,7 +3,8 @@ import { sidebar } from './sidebar.js'
 import { task } from './task.js'
 import "./style.css"
 import _ from 'lodash';
-import { collapseEvent, homeButton, inboxButton, newProjectEvent, newTaskEvent, todayButton } from './events'
+import { clearStorage, collapseEvent, homeButton, inboxButton, newProjectEvent, newTaskEvent, todayButton } from './events'
+import { renderStoredData } from './storage.js';
 
 function render() {
     const div = document.getElementById('content');
@@ -24,6 +25,10 @@ function render() {
     todayButton();
     inboxButton();
     homeButton();
+
+    renderStoredData();
+    clearStorage();
+    console.log(localStorage)
 }
 
 render();

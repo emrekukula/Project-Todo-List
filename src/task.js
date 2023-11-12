@@ -1,3 +1,6 @@
+import { getDate } from "date-fns";
+import { getStorageDate, storeDate } from "./storage";
+
 export { task, addTask, taskForm, createTaskContainer, formOnClick };
 
 function task() {
@@ -167,8 +170,17 @@ function createTaskContainer(input, priority, date) {
     prio.classList.add('prio')
     extendDiv.appendChild(prio);
 
-
     priorityColor(priority, cardContainer);
+    setTaskStorage(input, date, priority);
+}
+
+function setTaskStorage(input, date, priority) {
+    localStorage.setItem('task', JSON.stringify({
+        input: input,
+        date: date,
+        priority: priority,
+    }))
+    console.log(JSON.parse(localStorage.getItem('task')))
 }
 
 function priorityColor(priority, cardContainer) {

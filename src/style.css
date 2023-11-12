@@ -9,6 +9,11 @@ body {
     font-size: 1.5rem;
 }
 
+#content {
+    display: flex;
+    flex-direction: column;
+}
+
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -54,13 +59,13 @@ body {
 .task-container {
     display: flex;
     background-color: rgb(154, 149, 149);
-    width: 80vw;
+    flex: 1;
     justify-content: center;
 }
 
 .content-body {
     display: flex;
-    height: 600px;
+    height: 610px;
 }
 
 .none {
@@ -139,6 +144,7 @@ img {
 .bgImageOn {
     background-image: url(./icon.png);
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 .taskBtn {

@@ -1,8 +1,9 @@
-export { collapseEvent, newProjectEvent, newTaskEvent, todayButton, inboxButton, homeButton };
+export { collapseEvent, newProjectEvent, newTaskEvent, todayButton, inboxButton, homeButton, taskDelete, addTask,
+          extendButton, checkbox, editTask, changeInputContent, changeBackground, projectDelete, clearStorage};
 import { createProjectContainer } from './sidebar';
 import { getProjectInput, getTaskInput, getPriority, getDate, getEditValues, getInputChange} from './values'
 import * as exports from './task'
-import { spread } from 'lodash';
+import { renderButtons, renderStoredData } from './storage';
 
 // import every function from /task
 Object.entries(exports).forEach(([name, exported]) => window[name] = exported);
@@ -58,6 +59,7 @@ function addEvent() {
 
         let input = getProjectInput();
         createProjectContainer(input);
+        setProjectStorage();
 
         projectDelete();
         
@@ -68,6 +70,10 @@ function addEvent() {
     
     addBtn.addEventListener('click', addButtonClickHandler);
     }
+
+function setProjectStorage() {
+    localStorage.setItem('project', getProjectInput());
+}
 
 function newTaskEvent() {
     const taskBtn = document.querySelector('.taskBtn');
@@ -291,6 +297,7 @@ function inboxButton() {
         taskContainer.innerHTML = inboxContent;
         inboxButton.setAttribute('disabled', '');
         todayButton.removeAttribute('disabled');
+        renderButtons();
     })
 }
 
@@ -306,5 +313,25 @@ function homeButton() {
         taskContainer.innerHTML = inboxContent;
         inboxButton.setAttribute('disabled', '');
         todayButton.removeAttribute('disabled');
+    })
+}
+
+function clearStorage() {
+    const button = document.querySelector('.clear-storage-button');
+    const tasks = document.querySelectorAll('.task-input-container');
+    const projects = document.querySelectorAll('.input-container');
+
+    button.addEventListener('click', e => {
+        e.preventDefault();
+
+        localStorage.clear();
+        // tasks.forEach( e => {
+        //     if ( e.length === 1) {
+        //         e[0].remove();
+        //     } else {
+        //         e.remove();
+        //     }
+        // });
+        // projects.forEach( e => e.remove());
     })
 }

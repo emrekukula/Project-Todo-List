@@ -35,6 +35,7 @@ function buttons() {
     div.appendChild(collapseBtn());
     div.appendChild(homeBtn());
     div.appendChild(searchInput());
+    div.appendChild(clearStorageButton());
 
     return div;
 }
@@ -90,4 +91,11 @@ function high() {
     div.classList.add('high');
     div.textContent = 'High';
     return div;
+}
+
+function clearStorageButton() {
+    const button = document.createElement('button');
+    button.classList.add('clear-storage-button');
+    button.textContent = 'Clear Storage';
+    return button;
 }
