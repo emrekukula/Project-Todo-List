@@ -304,6 +304,7 @@ function inboxButton() {
         inboxButton.setAttribute('disabled', '');
         todayButton.removeAttribute('disabled');
         renderButtons();
+        newTaskEvent();
     })
 }
 
