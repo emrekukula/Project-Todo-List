@@ -1,3 +1,5 @@
+import { setProjectStorage } from "./storage";
+
 export { sidebar, createNewProject, createProjectContainer};
 
 
@@ -144,4 +146,5 @@ function createProjectContainer(input) {
     button.classList.add('project-delete-button');
     container.appendChild(button);
 
+    setProjectStorage(input);
 }

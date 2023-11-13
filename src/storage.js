@@ -1,8 +1,9 @@
-export { renderButtons, renderStoredData };
+export { renderButtons, renderStoredData, setTaskStorage, setProjectStorage };
 import { createTaskContainer } from "./task";
 import { changeBackground, changeInputContent, checkbox, editTask, extendButton, projectDelete, taskDelete } from './events'
 import { addTask } from './events'
 import { createProjectContainer } from "./sidebar";
+import { getTaskInput } from "./values";
 
 function renderStoredData() { 
     renderTasks();
@@ -20,19 +21,38 @@ function renderButtons() {
     projectDelete();
 }
 
-function renderProjects() {
-    createProjectContainer(getStoredProject());
-}
-
-function getStoredProject() {
-    return localStorage.getItem('project');
-}
-
 function renderTasks() {
-    createTaskContainer(getTaskStorage().input, getTaskStorage().priority, getTaskStorage().date);
+    Object.keys(localStorage).forEach(function(key){
+
+        createTaskContainer(getTaskStorage(key).input, getTaskStorage(key).priority, getTaskStorage(key).date);
+     });
 }
 
-function getTaskStorage() {
-    console.log(localStorage)
-    return JSON.parse(localStorage.getItem('task'));
+
+function setTaskStorage(input, date, priority) {
+    localStorage.setItem(input, JSON.stringify({
+        input: input,
+        date: date,
+        priority: priority,
+    }))
+}
+
+
+function getTaskStorage(input) {
+    return JSON.parse(localStorage.getItem(input));
+}
+
+function renderProjects() {
+    Object.keys(localStorage).forEach(function(key){
+
+        // createProjectContainer(getProjectInput(key));
+     });
+}
+
+function setProjectStorage(input) {
+    // localStorage.setItem(input, input);   
+}
+
+function getProjectInput(input) {
+    return localStorage.getItem(input);
 }

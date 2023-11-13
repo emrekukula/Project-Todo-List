@@ -1,5 +1,5 @@
 import { getDate } from "date-fns";
-import { getStorageDate, storeDate } from "./storage";
+import { getStorageDate, storeDate, setTaskStorage } from "./storage";
 
 export { task, addTask, taskForm, createTaskContainer, formOnClick };
 
@@ -114,8 +114,8 @@ function cancelTaskButton() {
     return div;
 }
 
-
 function createTaskContainer(input, priority, date) {
+
     const taskDiv = document.querySelector('.task-div');
 
     const container = document.createElement('div');
@@ -172,15 +172,6 @@ function createTaskContainer(input, priority, date) {
 
     priorityColor(priority, cardContainer);
     setTaskStorage(input, date, priority);
-}
-
-function setTaskStorage(input, date, priority) {
-    localStorage.setItem('task', JSON.stringify({
-        input: input,
-        date: date,
-        priority: priority,
-    }))
-    console.log(JSON.parse(localStorage.getItem('task')))
 }
 
 function priorityColor(priority, cardContainer) {

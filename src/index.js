@@ -29,6 +29,7 @@ function render() {
     renderStoredData();
     clearStorage();
     console.log(localStorage)
+    console.log(Object.keys(localStorage))
 }
 
 render();

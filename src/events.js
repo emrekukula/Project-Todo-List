@@ -1,5 +1,5 @@
 export { collapseEvent, newProjectEvent, newTaskEvent, todayButton, inboxButton, homeButton, taskDelete, addTask,
-          extendButton, checkbox, editTask, changeInputContent, changeBackground, projectDelete, clearStorage};
+          extendButton, checkbox, editTask, changeInputContent, changeBackground, projectDelete, clearStorage, };
 import { createProjectContainer } from './sidebar';
 import { getProjectInput, getTaskInput, getPriority, getDate, getEditValues, getInputChange} from './values'
 import * as exports from './task'
@@ -54,7 +54,7 @@ function cancelEvent() {
 function addEvent() {
     const addBtn = document.querySelector('.addBtn');
 
-    function addButtonClickHandler(e) {
+    function clickEvent(e) {
         e.preventDefault();
 
         let input = getProjectInput();
@@ -63,12 +63,12 @@ function addEvent() {
 
         projectDelete();
         
-        addBtn.removeEventListener('click', addButtonClickHandler);
+        addBtn.removeEventListener('click', clickEvent);
 
         addEvent();
     }
     
-    addBtn.addEventListener('click', addButtonClickHandler);
+    addBtn.addEventListener('click', clickEvent);
     }
 
 function setProjectStorage() {
@@ -91,13 +91,13 @@ function showTaskForm() {
     const form = document.querySelector('.task-form');
     form.classList.remove('none');
 }
-
+let taskCount = 0;
 
 function addTask() {
     const submitTaskBtn = document.querySelector('.submit-task-button');
     const taskForm = document.querySelector('.task-form');
-    
-    function addButtonClickHandler(e) {
+
+    function taskButtonHandler(e) {
         e.preventDefault();
 
         createTaskContainer(getTaskInput(), getPriority(), getDate());
@@ -109,12 +109,11 @@ function addTask() {
         changeInputContent();
         changeBackground();
 
-        submitTaskBtn.removeEventListener('click', addButtonClickHandler);
+        submitTaskBtn.removeEventListener('click', taskButtonHandler);
 
         addTask(); // same as line 80
     }
-    
-    submitTaskBtn.addEventListener('click', addButtonClickHandler);
+    submitTaskBtn.addEventListener('click', taskButtonHandler);
 }
 
 function changeBackground() {
@@ -156,12 +155,19 @@ function taskDelete() {
             e.preventDefault();
 
             btn.closest('div').parentNode.parentNode.remove();
+            removeFromStorage(btn);
+
 
             if (taskInputContainer.length == 1) {
                 taskDiv.classList.add('bgImageOn');
             }
         })
     })
+}
+
+function removeFromStorage(btn) {
+    const input = btn.closest('div').parentNode.querySelector('.input-div').textContent;
+    localStorage.removeItem(input);
 }
 
 function extendButton() {
